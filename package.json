@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npm run build:ts && tsc -p test/tsconfig.json && tap --ts test/**/*.test.ts",
+    "test": "jest",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js\""
@@ -23,13 +23,14 @@
     "fastify-cli": "^2.15.0"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "@types/node": "^17.0.8",
-    "@types/tap": "^15.0.5",
-    "ts-node": "^10.4.0",
     "concurrently": "^7.0.0",
     "fastify-tsconfig": "^1.0.1",
+    "jest": "^27.5.0",
     "nodemon": "^2.0.15",
-    "tap": "^15.1.6",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
 }
