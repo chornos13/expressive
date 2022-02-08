@@ -1,27 +1,33 @@
-# Install dependencies only when needed
-FROM node:14-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
+FROM node:lts-slim
 
-COPY package.json yarn.lock ./
-RUN yarn install
+ENV TZ=Asia/Jakarta
 
-# Development image, copy all the files and run expressive.js
-FROM node:14-alpine AS runner
-WORKDIR /app
+# User
+RUN groupadd -f -r devuser --gid=$GROUP_ID && \
+    useradd --create-home -r devuser -g devuser --uid=$USER_ID || true
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 expressivejs
+#add node_modules binary file
+ENV NODE_PATH=/node_modules
+ENV PATH=${NODE_PATH}/.bin:$PATH
 
-# Copy Source Code
+#Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD commands
+WORKDIR /expressive
+
+#Copy new files or directories into the filesystem of the container
+COPY package.json .
+COPY yarn.lock .
+
+#Execute commands in a new layer on top of the current image and commit the results
+RUN yarn add --dev --ignore-scripts install-peers --modules-folder $NODE_PATH && \
+    yarn install --modules-folder $NODE_PATH && \
+    yarn cache clean --all
+
+USER $USER_ID:$GROUP_ID
+
+##Copy new files or directories into the filesystem of the container
 COPY . .
 
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/package.json ./package.json
-
-USER expressivejs
-
+#Informs container runtime that the container listens on the specified network ports at runtime
 EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
