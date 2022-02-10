@@ -6,5 +6,7 @@ test('example is loaded', async () => {
   const res = await app.inject({
     url: '/example',
   })
-  expect(res.payload).toEqual('this is an example')
+  expect(res.json()).toEqual({
+    sum: 11,
+  })
 })
