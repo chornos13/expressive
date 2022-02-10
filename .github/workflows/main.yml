@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Copy env example
+        run: cp .env.example .env
+      - name: Build docker images
+        run: docker-compose build app
+      - name: Run ESLint tests
+        run: docker-compose run app yarn test:eslint
+      - name: Run Jest tests
+        run: docker-compose run app yarn test
