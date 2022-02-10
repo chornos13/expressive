@@ -7,6 +7,10 @@ test('example is loaded', async () => {
     url: '/example',
   })
   expect(res.json()).toEqual({
-    sum: 11,
+    sum: [
+      {
+        sum: 11,
+      },
+    ],
   })
 })
