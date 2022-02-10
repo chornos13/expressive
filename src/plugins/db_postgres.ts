@@ -1,5 +1,5 @@
 import fp from 'fastify-plugin'
-import {fastifyPostgres} from 'fastify-postgres'
+import { fastifyPostgres } from 'fastify-postgres'
 
 export default fp(async (fastify, opts) => {
   const {
@@ -7,7 +7,7 @@ export default fp(async (fastify, opts) => {
     POSTGRES_PASSWORD,
     POSTGRES_SERVICE,
     POSTGRES_PORT,
-    POSTGRES_DB
+    POSTGRES_DB,
   } = process.env
 
   fastify.register(fastifyPostgres, {
