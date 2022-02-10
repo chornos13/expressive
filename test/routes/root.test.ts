@@ -1,6 +1,6 @@
-import { build } from '../helper'
+import helper from '../helper'
 
-const app = build()
+const app = helper.build()
 
 test('default root route', async () => {
   const res = await app.inject({
