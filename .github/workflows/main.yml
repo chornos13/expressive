@@ -29,6 +29,8 @@ jobs:
           access_token: ${{ github.token }}
       - name: Check out code
         uses: actions/checkout@v2
+      - name: Copy env example
+        run: cp .env.example .env
       - name: Build docker images
         run: docker-compose build app
       - name: Run ESLint tests
