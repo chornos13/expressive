@@ -36,3 +36,4 @@ To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/d
 - [ ] Setup Type ORM
 - [ ] Setup Conventianl Commit
 - [ ] Setup Versioning
+- [ ] Add Swagger
