@@ -1,4 +1,6 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
+# Expressive
+
+## Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
 
 ## Available Scripts
@@ -21,3 +23,16 @@ Run the test cases.
 ## Learn More
 
 To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/docs/latest/).
+
+## Roadmap
+- [x] Init Fastify
+- [x] Using Typescript
+- [x] Using Jest instead of Tap
+- [x] Init Docker
+- [x] Add Postgres DB to docker-compose
+- [x] Setup Prettier
+- [x] Setup ESLint
+- [x] Setup Github Action for Testing
+- [ ] Setup Type ORM
+- [ ] Setup Conventianl Commit
+- [ ] Setup Versioning
