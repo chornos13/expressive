@@ -34,6 +34,9 @@ To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/d
 - [x] Setup ESLint
 - [x] Setup Github Action for Testing
 - [ ] Setup Type ORM
+- [ ] Setup Absolute Import
+- [ ] Add package.json script to run testing in docker
+- [ ] Setup docker-services
 - [ ] Setup Conventianl Commit
 - [ ] Setup Versioning
 - [ ] Add Swagger
