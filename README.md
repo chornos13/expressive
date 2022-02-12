@@ -3,22 +3,33 @@
 ## Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
 
-## Available Scripts
+## Recommended way running in Development (Docker)
 
-In the project directory, you can run:
+1. Copy env example -> `cp .env.example .env`
+2. Build docker images -> `docker-compose build app`
+3. Run Dev -> `docker-compose up app`
+4. Access (http://localhost:3001)
 
-### `npm run dev`
+### For Testing (Docker)
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Run ESLint tests -> `docker-compose run app yarn test:eslint`
+- Run Jest tests -> `docker-compose run app yarn test`
 
-### `npm start`
+## Running without Docker
+### Make sure you have postgres installed in your local Computer
 
-For production mode
+1. Install module -> `yarn install`
+2. Running Development -> `npm run dev`
+4. Access (http://localhost:3001)
 
-### `npm run test`
+### For Testing without Docker
 
-Run the test cases.
+- Run ESLint tests -> `yarn test:eslint`
+- Run Jest tests -> `yarn test`
+
+### For Production
+- Run Production -> `npm start`
+- Access (https://localhost:3001)
 
 ## Learn More
 
