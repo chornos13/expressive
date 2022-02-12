@@ -7,8 +7,5 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts" // include folder test for declaration merging purposes
-  ]
+  "include": ["src/**/*.ts"]
 }
