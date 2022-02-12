@@ -37,6 +37,7 @@ To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/d
 - [ ] Setup Absolute Import
 - [ ] Add package.json script to run testing in docker
 - [ ] Setup docker-services
-- [ ] Setup Conventianl Commit
+- [ ] Setup Conventional Commit
 - [ ] Setup Versioning
 - [ ] Add Swagger
+- [ ] Pre-commit Git Hook with Testing
