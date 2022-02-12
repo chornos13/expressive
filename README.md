@@ -18,8 +18,9 @@ This project was bootstrapped with Fastify-CLI.
 ## Running without Docker
 ### Make sure you have postgres installed in your local Computer
 
-1. Install module -> `yarn install`
-2. Running Development -> `npm run dev`
+1. Copy env example -> `cp .env.example .env`
+2. Install module -> `yarn install`
+3. Running Development -> `npm run dev`
 4. Access (http://localhost:3001)
 
 ### For Testing without Docker
