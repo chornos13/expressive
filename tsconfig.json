@@ -5,7 +5,12 @@
     "sourceMap": true,
     // tyeporm
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    // absolute import
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts"]
 }
