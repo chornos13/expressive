@@ -53,3 +53,4 @@ To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/d
 - [ ] Setup Versioning
 - [ ] Add Swagger
 - [ ] Pre-commit Git Hook with Testing
+- [ ] Extends typescript-eslint rules
