@@ -27,6 +27,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify.register(AutoLoad, {
     dir: join(__dirname, 'routes'),
     options: opts,
+    dirNameRoutePrefix: false,
+    scriptPattern: /.controller.(ts|js)$/,
   })
 }
 

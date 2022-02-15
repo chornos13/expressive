@@ -18,6 +18,6 @@ export default fp(async (fastify) => {
     port: Number(POSTGRES_PORT),
     database: POSTGRES_DB,
     // url: `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_SERVICE}:${POSTGRES_PORT}/${POSTGRES_DB}`,
-    entities: [`${__dirname}/../entity/*.{ts,js}`],
+    entities: [`${__dirname}/../routes/**/*.entity.{ts,js}`],
   })
 })

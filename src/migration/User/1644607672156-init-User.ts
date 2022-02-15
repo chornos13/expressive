@@ -23,8 +23,12 @@ export default class initUser1644607672156 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'isActive',
-            type: 'boolean',
+            name: 'email',
+            type: 'varchar(254)',
+          },
+          {
+            name: 'hashedPassword',
+            type: 'varchar',
           },
         ],
       }),

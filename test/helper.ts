@@ -37,25 +37,29 @@ export default {
       // Create new Database
       const connNewDb = await connectionBuild()
       const queryRunner = connNewDb.createQueryRunner()
-      await queryRunner.createDatabase(POSTGRES_DB)
+      await queryRunner.createDatabase(POSTGRES_DB!)
       await connNewDb.close()
 
       // Run Migration for created Database
       const connMigration = await connectionBuild(POSTGRES_DB)
       await connMigration.runMigrations()
       await connMigration.close()
+    })
 
+    beforeAll(async () => {
       app.register(fp(App))
       await app.ready()
     })
 
     afterAll(async () => {
       await app.close()
+    })
 
+    afterAll(async () => {
       // Drop created Database
       const connDrop = await connectionBuild()
       const queryRunner = connDrop.createQueryRunner()
-      await queryRunner.dropDatabase(POSTGRES_DB, true)
+      await queryRunner.dropDatabase(POSTGRES_DB!, true)
       await connDrop.close()
     })
 

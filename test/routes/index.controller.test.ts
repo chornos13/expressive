@@ -1,4 +1,4 @@
-import helper from '../helper'
+import helper from '@test/helper'
 
 const app = helper.build()
 
