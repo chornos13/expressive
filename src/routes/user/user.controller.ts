@@ -1,48 +1,16 @@
 import { FastifyPluginAsync } from 'fastify'
 import { waterfall } from 'async'
 import { InferType } from 'yup'
+import userSchema from '@src/routes/user/user.schema'
 import UserEntity from './user.entity'
-import userSchema from './user.schema'
+import userService from './user.service'
 
-const { registerSchema } = userSchema
-
-const example: FastifyPluginAsync = async (fastify): Promise<void> => {
+const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.post('/register/user', (req, reply) => {
-    waterfall(
-      [
-        async function validatePayload() {
-          const payload = await registerSchema.validate(req.body, {
-            abortEarly: false,
-          })
-
-          return payload
-        },
-        async function createEntity(payload: InferType<typeof registerSchema>) {
-          const entity = UserEntity.create({
-            ...payload,
-            hashedPassword: await fastify.bcrypt.hash(payload.password),
-          })
-
-          return entity
-        },
-        async function insertUser(userEntity: UserEntity) {
-          const data = await UserEntity.save(userEntity)
-
-          // @ts-ignore
-          delete data.hashedPassword
-
-          return data
-        },
-      ],
-      (err, user) => {
-        if (err) {
-          return reply.send(err)
-        }
-
-        return reply.send({
-          data: user,
-        })
-      }
+    userService.postRegisterUser(
+      req.body as InferType<typeof userSchema.registerSchema>,
+      fastify.bcrypt.hash,
+      (data) => reply.send(data)
     )
   })
 
@@ -73,4 +41,4 @@ const example: FastifyPluginAsync = async (fastify): Promise<void> => {
   })
 }
 
-export default example
+export default routes
