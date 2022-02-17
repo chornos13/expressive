@@ -5,6 +5,8 @@ const app = helper.build()
 
 describe('User Routes', () => {
   describe('#POST /login', () => {
+    const firstGeneratedId = 1
+
     const userPayload = {
       firstName: 'anyFirstName',
       lastName: 'anyLastName',
@@ -28,9 +30,21 @@ describe('User Routes', () => {
           },
         })
 
-        expect(res.json()).toEqual({
+        const resJson = res.json()
+
+        expect(resJson).toEqual({
           statusCode: 200,
           message: 'Login successfully',
+          data: {
+            token: expect.any(String),
+          },
+        })
+
+        expect(app.jwt.verify(resJson.data.token)).toEqual({
+          iat: expect.any(Number),
+          user: {
+            id: firstGeneratedId,
+          },
         })
       })
     })

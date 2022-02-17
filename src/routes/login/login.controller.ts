@@ -34,15 +34,27 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
             )
           }
 
-          return isCorrect
+          return user
+        },
+        async function getToken(user: UserEntity) {
+          const { id } = user
+
+          return fastify.jwt.sign({
+            user: {
+              id,
+            },
+          })
         },
       ],
-      (err) => {
+      (err, token?: string) => {
         if (err) return reply.send(err)
 
         return reply.send({
           statusCode: 200,
           message: 'Login successfully',
+          data: {
+            token,
+          },
         })
       }
     )
