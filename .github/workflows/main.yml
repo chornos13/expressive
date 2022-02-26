@@ -28,6 +28,6 @@ jobs:
       - name: Build docker images
         run: docker-compose build app
       - name: Run ESLint tests
-        run: docker-compose run app yarn test:eslint
+        run: npm run dcr:test:eslint
       - name: Run Jest tests
-        run: docker-compose run app yarn test
+        run: npm run dcr:test
