@@ -8,6 +8,9 @@
   },
   "scripts": {
     "test": "jest",
+    "dcr:test:eslint": "docker-compose run --rm app npm run test:eslint",
+    "dcr:test": "docker-compose run --rm app npm run test",
+    "dcr:sh": "docker-compose run --rm app sh",
     "test:eslint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",

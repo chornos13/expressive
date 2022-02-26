@@ -48,7 +48,7 @@ To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/d
 - [x] Setup Type ORM
 - [x] Setup Absolute Import
 - [x] Implement JWT
-- [ ] Add package.json script to run testing in docker
+- [x] Add package.json script to run testing in docker
 - [ ] Setup docker-services
 - [ ] Setup Conventional Commit
 - [ ] Setup Versioning
