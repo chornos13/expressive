@@ -3,6 +3,8 @@ FROM node:lts-slim
 ENV TZ=Asia/Jakarta
 
 # User
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 RUN groupadd -f -r devuser --gid=$GROUP_ID && \
     useradd --create-home -r devuser -g devuser --uid=$USER_ID || true
 
