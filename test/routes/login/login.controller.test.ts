@@ -3,7 +3,7 @@ import userService from '@src/routes/user/user.service'
 
 const app = helper.build()
 
-describe('User Routes', () => {
+describe('Login Routes', () => {
   describe('#POST /login', () => {
     const firstGeneratedId = 1
 
