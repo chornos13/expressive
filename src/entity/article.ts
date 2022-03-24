@@ -9,7 +9,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm'
-import ArticleDetailEntity from '@src/routes/articleDetail/articleDetail.entity'
+import ArticleDetailEntity from '@src/entity/articleDetail'
 
 @Entity('article')
 export default class ArticleEntity extends BaseEntity {

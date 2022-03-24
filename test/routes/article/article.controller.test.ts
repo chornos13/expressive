@@ -1,6 +1,6 @@
 import helper from '@test/helper'
-import ArticleEntity from '@src/routes/article/article.entity'
-import ArticleDetailEntity from '@src/routes/articleDetail/articleDetail.entity'
+import ArticleEntity from '@src/entity/article'
+import ArticleDetailEntity from '@src/entity/articleDetail'
 
 const app = helper.build()
 

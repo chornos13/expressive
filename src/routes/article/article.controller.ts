@@ -1,5 +1,5 @@
 import { FastifyPluginAsync } from 'fastify'
-import ArticleEntity from '@src/routes/article/article.entity'
+import ArticleEntity from '@src/entity/article'
 
 const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.get('/article', async (req, reply) => {
