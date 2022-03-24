@@ -14,7 +14,10 @@
     "test:eslint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -p tsconfig.build.json -w\" \"tsc-alias -p tsconfig.build.json -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js\""
+    "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -p tsconfig.build.json -w\" \"tsc-alias -p tsconfig.build.json -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js\"",
+    "migration:run": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+    "migration:generate": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:generate",
+    "migration:create": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:create"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,7 @@
   "dependencies": {
     "@types/async": "^3.2.12",
     "async": "^3.2.3",
+    "debug": "^4.3.3",
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.10.0",
     "fastify-bcrypt": "^1.0.0",
@@ -32,12 +36,16 @@
     "fastify-sensible": "^3.1.2",
     "fastify-typeorm-plugin": "^2.2.0",
     "pg": "^8.7.3",
+    "reading-time": "^1.5.0",
     "typeorm": "^0.2.41",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@sinonjs/fake-timers": "^9.1.0",
+    "@types/debug": "^4.1.7",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.8",
+    "@types/sinonjs__fake-timers": "^8.1.1",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "concurrently": "^7.0.0",
