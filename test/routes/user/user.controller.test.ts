@@ -1,4 +1,4 @@
-import UserEntity from '@src/routes/user/user.entity'
+import UserEntity from '@src/entity/user'
 import helper from '@test/helper'
 
 const app = helper.build()
