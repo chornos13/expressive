@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify'
 import { waterfall } from 'async'
-import UserEntity from '@src/routes/user/user.entity'
+import UserEntity from '@src/entity/user'
 
 const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.post('/login', (req, reply) => {

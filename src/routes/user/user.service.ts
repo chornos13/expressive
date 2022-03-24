@@ -1,6 +1,6 @@
 import { waterfall } from 'async'
 import { InferType } from 'yup'
-import UserEntity from '@src/routes/user/user.entity'
+import UserEntity from '@src/entity/user'
 import userSchema from '@src/routes/user/user.schema'
 
 const { registerSchema } = userSchema

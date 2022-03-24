@@ -1,5 +1,5 @@
 import helper from '@test/helper'
-import sensibleService from '@src/routes/test/sensible.service'
+import sensibleService from '@src/routes/sensible/sensible.service'
 import * as yup from 'yup'
 
 const app = helper.build()

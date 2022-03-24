@@ -2,7 +2,7 @@ import { FastifyPluginAsync } from 'fastify'
 import { waterfall } from 'async'
 import { InferType } from 'yup'
 import userSchema from '@src/routes/user/user.schema'
-import UserEntity from './user.entity'
+import UserEntity from '@src/entity/user'
 import userService from './user.service'
 
 const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
