@@ -11,7 +11,8 @@
     "paths": {
       "@src/*": ["src/*"],
       "@test/*": ["test/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }
