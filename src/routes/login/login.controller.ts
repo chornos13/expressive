@@ -47,7 +47,15 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
         },
       ],
       (err, token?: string) => {
-        if (err) return reply.send(err)
+        if (err || !token) return reply.send(err)
+
+        reply.setCookie('token', token, {
+          path: '/',
+          signed: true,
+          httpOnly: true,
+          secure: true,
+          sameSite: 'none',
+        })
 
         return reply.send({
           statusCode: 200,
