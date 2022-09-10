@@ -49,12 +49,16 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
       (err, token?: string) => {
         if (err || !token) return reply.send(err)
 
+        const date = new Date()
+        date.setHours(date.getHours() + 2)
+
         reply.setCookie('token', token, {
+          domain: process.env.COOKIES_DOMAIN,
           path: '/',
-          signed: true,
           httpOnly: true,
           secure: true,
           sameSite: 'none',
+          expires: date,
         })
 
         return reply.send({

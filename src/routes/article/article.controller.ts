@@ -23,6 +23,12 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
           if (!token) {
             throw fastify.httpErrors.forbidden('Invalid token')
           }
+
+          try {
+            fastify.jwt.verify(token)
+          } catch (e) {
+            throw fastify.httpErrors.forbidden('Invalid token')
+          }
         },
         async function createArticle() {
           const data = await fastify.orm.transaction(async (entityManager) => {

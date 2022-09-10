@@ -2,6 +2,7 @@ import helper from '@test/helper'
 import ArticleEntity from '@src/entity/article'
 import ArticleDetailEntity from '@src/entity/articleDetail'
 import loginHelper from '@test/routes/login/helper/loginHelper'
+import { LightMyRequestResponse } from 'fastify'
 
 const app = helper.build()
 
@@ -60,20 +61,27 @@ describe('Article Routes', () => {
     const userPayload = loginHelper.setupCreateDummyUser(() => app.bcrypt.hash)
 
     describe('200 OK', () => {
-      test('should insert data and automatically calculate wordCount and minuteReadingTime', async () => {
-        const loginRes = await loginHelper.loginPost(
+      let loginRes: LightMyRequestResponse
+      beforeAll(async () => {
+        loginRes = await loginHelper.loginPost(
           app,
           userPayload.email,
           userPayload.password
         )
+      })
 
+      const getCookies = () => {
+        return loginRes.cookies.reduce((acc: any, curVal: any) => {
+          acc[curVal.name] = curVal.value
+          return acc
+        }, {})
+      }
+
+      test('should insert data and automatically calculate wordCount and minuteReadingTime', async () => {
         const res = await app.inject({
           url: '/article',
           method: 'POST',
-          cookies: loginRes.cookies.reduce((acc: any, curVal: any) => {
-            acc[curVal.name] = curVal.value
-            return acc
-          }, {}),
+          cookies: getCookies(),
           payload: {
             title: 'anyTitle',
             articleDetail: {
@@ -107,6 +115,30 @@ describe('Article Routes', () => {
         const res = await app.inject({
           url: '/article',
           method: 'POST',
+          payload: {
+            title: 'anyTitle',
+            articleDetail: {
+              description: 'any description',
+            },
+          },
+        })
+
+        const resJson = res.json()
+
+        expect(resJson).toEqual({
+          statusCode: 403,
+          error: 'Forbidden',
+          message: 'Invalid token',
+        })
+      })
+
+      test('should reply 403 when invalid token is sent', async () => {
+        const res = await app.inject({
+          url: '/article',
+          method: 'POST',
+          cookies: {
+            token: 'invalid token',
+          },
           payload: {
             title: 'anyTitle',
             articleDetail: {

@@ -30,6 +30,7 @@ describe('Login Routes', () => {
         expect(
           res.cookies.find((cookie: any) => cookie.name === 'token')
         ).toEqual({
+          domain: process.env.COOKIES_DOMAIN,
           name: 'token',
           value: resJson.data.token,
           path: '/',
