@@ -26,6 +26,7 @@
     "@fastify/cors": "^7.0.0",
     "@types/async": "^3.2.12",
     "async": "^3.2.3",
+    "dayjs": "^1.11.5",
     "debug": "^4.3.3",
     "fastify": "^3.29.2",
     "fastify-autoload": "^3.13.0",

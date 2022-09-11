@@ -1,4 +1,6 @@
 import helper from '@test/helper'
+import * as dayjs from 'dayjs'
+import JestAdapter from '@test/_utils/JestAdapter'
 import loginHelper from './helper/loginHelper'
 
 const app = helper.build()
@@ -10,35 +12,17 @@ describe('Login Routes', () => {
     const userPayload = loginHelper.setupCreateDummyUser(() => app.bcrypt.hash)
 
     describe('200 OK', () => {
-      test.only('should login successfully given correct email and password', async () => {
-        jest.useFakeTimers({
-          doNotFake: [
-            // 'Date',
-            // 'hrtime',
-            // 'performance',
-            // 'queueMicrotask',
-            // 'requestAnimationFrame',
-            // 'cancelAnimationFrame',
-            // 'requestIdleCallback',
-            // 'cancelIdleCallback',
-            // 'clearImmediate',
-            // 'setInterval',
-            // 'clearInterval',
-            // 'setTimeout',
-            // 'clearTimeout',
-            'nextTick',
-            'setImmediate',
-          ],
-        })
+      test('should login successfully given correct email and password', async () => {
+        JestAdapter.useFakeTimers()
 
-        jest.setSystemTime(new Date('2020-01-01T00:00:00.000Z'))
+        const currentTime = dayjs('2020-01-01 00:00:00')
+
+        jest.setSystemTime(currentTime.toDate())
         const res = await loginHelper.loginPost(
           app,
           userPayload.email,
           userPayload.password
         )
-        jest.runOnlyPendingTimers()
-        console.log('wdaowdjaodja')
 
         const resJson = res.json()
 
@@ -54,6 +38,7 @@ describe('Login Routes', () => {
           res.cookies.find((cookie: any) => cookie.name === 'token')
         ).toEqual({
           domain: process.env.COOKIES_DOMAIN,
+          expires: currentTime.add(2, 'hour').toDate(),
           name: 'token',
           value: resJson.data.token,
           path: '/',
