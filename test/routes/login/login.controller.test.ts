@@ -11,7 +11,25 @@ describe('Login Routes', () => {
 
     describe('200 OK', () => {
       test.only('should login successfully given correct email and password', async () => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+          doNotFake: [
+            // 'Date',
+            // 'hrtime',
+            // 'performance',
+            // 'queueMicrotask',
+            // 'requestAnimationFrame',
+            // 'cancelAnimationFrame',
+            // 'requestIdleCallback',
+            // 'cancelIdleCallback',
+            // 'clearImmediate',
+            // 'setInterval',
+            // 'clearInterval',
+            // 'setTimeout',
+            // 'clearTimeout',
+            'nextTick',
+            'setImmediate',
+          ],
+        })
 
         jest.setSystemTime(new Date('2020-01-01T00:00:00.000Z'))
         const res = await loginHelper.loginPost(
