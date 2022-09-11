@@ -20,9 +20,12 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
       [
         async function getUser() {
           const { id } = req.params as any
-          const user = await UserEntity.findOne(id)
+          const user = await UserEntity.findOneBy({
+            id,
+          })
 
           if (user) {
+            // @ts-ignore
             delete user.hashedPassword
           }
 

@@ -36,7 +36,10 @@ describe('User Routes', () => {
           },
         })
 
-        const user = await UserEntity.findOne(firstGeneratedId)
+        const user = await UserEntity.findOneBy({
+          id: firstGeneratedId,
+        })
+
         expect(user).toEqual({
           id: firstGeneratedId,
           firstName: payload.firstName,
@@ -65,7 +68,9 @@ describe('User Routes', () => {
           },
         })
 
-        const user = await UserEntity.findOne(firstGeneratedId)
+        const user = await UserEntity.findOneBy({
+          id: firstGeneratedId,
+        })
 
         expect(
           await app.bcrypt.compare(passwordInput, user?.hashedPassword!)
@@ -166,7 +171,11 @@ describe('User Routes', () => {
 
       const id = 1
 
-      await UserEntity.save(UserEntity.create(user))
+      await UserEntity.save(
+        UserEntity.create({
+          ...user,
+        })
+      )
 
       const res = await app.inject({
         url: `/user/${id}`,

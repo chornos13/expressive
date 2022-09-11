@@ -37,7 +37,7 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
               articleDetail: Object
             }
 
-            const articleDetailEntity =
+            const articleDetailEntity: any =
               ArticleDetailEntity.create(articleDetail)
 
             await entityManager.save(articleDetailEntity)

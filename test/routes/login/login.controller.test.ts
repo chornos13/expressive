@@ -10,12 +10,17 @@ describe('Login Routes', () => {
     const userPayload = loginHelper.setupCreateDummyUser(() => app.bcrypt.hash)
 
     describe('200 OK', () => {
-      test('should login successfully given correct email and password', async () => {
+      test.only('should login successfully given correct email and password', async () => {
+        jest.useFakeTimers()
+
+        jest.setSystemTime(new Date('2020-01-01T00:00:00.000Z'))
         const res = await loginHelper.loginPost(
           app,
           userPayload.email,
           userPayload.password
         )
+        jest.runOnlyPendingTimers()
+        console.log('wdaowdjaodja')
 
         const resJson = res.json()
 
@@ -45,6 +50,8 @@ describe('Login Routes', () => {
             id: firstGeneratedId,
           },
         })
+
+        jest.useRealTimers()
       })
     })
 
