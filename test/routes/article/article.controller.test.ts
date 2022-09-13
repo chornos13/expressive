@@ -3,6 +3,8 @@ import ArticleEntity from '@src/entity/article'
 import ArticleDetailEntity from '@src/entity/articleDetail'
 import loginHelper from '@test/routes/login/helper/loginHelper'
 import { LightMyRequestResponse } from 'fastify'
+import JestAdapter from '@test/_utils/JestAdapter'
+import * as dayjs from 'dayjs'
 
 const app = helper.build()
 
@@ -15,6 +17,10 @@ describe('Article Routes', () => {
   describe('#GET /article', () => {
     describe('200 OK', () => {
       test('should return articles when exists', async () => {
+        JestAdapter.useFakeTimers()
+
+        jest.setSystemTime(dayjs('2020-01-01').toDate())
+
         await app.orm.transaction(async (entityManager) => {
           const articleDetail = ArticleDetailEntity.create({
             description: 'any description',
@@ -44,7 +50,7 @@ describe('Article Routes', () => {
             {
               id: 1,
               title: 'anyTitle',
-              createdAt: expect.any(String),
+              createdAt: dayjs('2020-01-01').toISOString(),
               minuteReadingTime: 1,
               wordCount: 2,
               updatedAt: null,
@@ -53,6 +59,8 @@ describe('Article Routes', () => {
           ],
           total: 1,
         })
+
+        jest.useRealTimers()
       })
     })
   })

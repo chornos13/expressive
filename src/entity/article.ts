@@ -8,6 +8,8 @@ import {
   BaseEntity,
   OneToOne,
   JoinColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm'
 import ArticleDetailEntity from '@src/entity/articleDetail'
 
@@ -34,6 +36,16 @@ export default class ArticleEntity extends BaseEntity {
 
   @UpdateDateColumn()
   public updatedAt?: Date
+
+  @BeforeInsert()
+  updateDateCreation() {
+    this.createdAt = new Date()
+  }
+
+  @BeforeUpdate()
+  updateDateUpdate() {
+    this.updatedAt = new Date()
+  }
 
   @VersionColumn()
   version?: number
