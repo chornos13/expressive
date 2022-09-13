@@ -1,5 +1,7 @@
 import helper from '@test/helper'
-import userService from '@src/routes/user/user.service'
+import * as dayjs from 'dayjs'
+import JestAdapter from '@test/_utils/JestAdapter'
+import loginHelper from './helper/loginHelper'
 
 const app = helper.build()
 
@@ -7,28 +9,20 @@ describe('Login Routes', () => {
   describe('#POST /login', () => {
     const firstGeneratedId = 1
 
-    const userPayload = {
-      firstName: 'anyFirstName',
-      lastName: 'anyLastName',
-      email: 'anyemail@email.com',
-      password: 'anypassword',
-      confirmPassword: 'anypassword',
-    }
-
-    beforeAll((cb) => {
-      userService.postRegisterUser(userPayload, app.bcrypt.hash, () => cb())
-    })
+    const userPayload = loginHelper.setupCreateDummyUser(() => app.bcrypt.hash)
 
     describe('200 OK', () => {
       test('should login successfully given correct email and password', async () => {
-        const res = await app.inject({
-          url: '/login',
-          method: 'POST',
-          payload: {
-            email: userPayload.email,
-            password: userPayload.password,
-          },
-        })
+        JestAdapter.useFakeTimers()
+
+        const currentTime = dayjs('2020-01-01 00:00:00')
+
+        jest.setSystemTime(currentTime.toDate())
+        const res = await loginHelper.loginPost(
+          app,
+          userPayload.email,
+          userPayload.password
+        )
 
         const resJson = res.json()
 
@@ -40,12 +34,27 @@ describe('Login Routes', () => {
           },
         })
 
+        expect(
+          res.cookies.find((cookie: any) => cookie.name === 'token')
+        ).toEqual({
+          domain: process.env.COOKIES_DOMAIN,
+          expires: currentTime.add(2, 'hour').toDate(),
+          name: 'token',
+          value: resJson.data.token,
+          path: '/',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'None',
+        })
+
         expect(app.jwt.verify(resJson.data.token)).toEqual({
           iat: expect.any(Number),
           user: {
             id: firstGeneratedId,
           },
         })
+
+        jest.useRealTimers()
       })
     })
 

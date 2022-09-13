@@ -15,7 +15,7 @@ services:
     volumes:
       - ./:/expressive
     ports:
-      - '3001:3000'
+      - '3001:3001'
 
   postgres_db:
     image: 'postgres:13'

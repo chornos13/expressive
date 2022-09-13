@@ -1,5 +1,5 @@
 import fp from 'fastify-plugin'
-import sensible, { SensibleOptions } from 'fastify-sensible'
+import sensible, { SensibleOptions } from 'fastify-sensible-deprecated'
 import yupErrorhandler from '@src/error_handlers/yup.errorhandler'
 import defaultErrorhandler from '@src/error_handlers/default.errorhandler'
 import { FastifyRequest } from 'fastify/types/request'
@@ -12,17 +12,17 @@ function withErrorFlow(
   reply: FastifyReply,
   fastify: FastifyInstance
 ) {
+  let next: () => void
   return function errorFlow(tasks: Function[]) {
     let index = 0
 
     function nextTask() {
       const task = tasks[index]
       index += 1
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       task(error, request, reply, fastify, next)
     }
 
-    function next() {
+    next = () => {
       nextTask()
     }
 

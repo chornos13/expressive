@@ -6,12 +6,13 @@ import UserEntity from '@src/entity/user'
 import userService from './user.service'
 
 const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
-  fastify.post('/register/user', (req, reply) => {
-    userService.postRegisterUser(
+  fastify.post('/register/user', async (req, reply) => {
+    const data = await userService.postRegisterUser(
       req.body as InferType<typeof userSchema.registerSchema>,
-      fastify.bcrypt.hash,
-      (data) => reply.send(data)
+      fastify.bcrypt.hash
     )
+
+    reply.send(data)
   })
 
   fastify.get('/user/:id', (req, reply) => {
@@ -19,9 +20,12 @@ const routes: FastifyPluginAsync = async (fastify): Promise<void> => {
       [
         async function getUser() {
           const { id } = req.params as any
-          const user = await UserEntity.findOne(id)
+          const user = await UserEntity.findOneBy({
+            id,
+          })
 
           if (user) {
+            // @ts-ignore
             delete user.hashedPassword
           }
 
